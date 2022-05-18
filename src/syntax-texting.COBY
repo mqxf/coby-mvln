@@ -1,0 +1,16 @@
+open/closed class "TestClass"{
+    as String define "myString" for Hello Wolrd;
+    as Char define "myChar" for A;
+    as Int define "myInt" for 22;
+    as Float define "MyFloat" for 3.14;
+    as Double define "MyDouble" for 2.18;
+    as Array width String define "myStringArray" for 5; ..5 is the lenght
+
+    ..This is a comment..
+
+    as Int define Invokable width ("x" as Int, "s" as String){
+
+    }
+}
+
+as T
