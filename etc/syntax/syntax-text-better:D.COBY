@@ -1,0 +1,27 @@
++ : public
+- : private      order: +#~
+# : final
+~ : static
+
+eq : equal
+
++ class myClass(){
+    +# String: myString = "Hello, world!";
+    -# Int: a = 22;
+    -# Int: b = 2;
+    +#~ Double: pi =  3.14259; 
+
+    ..This is a Comment..
+
+    +~ Int: calculate(Int: x, Int: y){
+        give x + y;
+    }
+
+    if(a eq b){
+        calculate(a, b);
+    }else if(a > b){
+        calculate(a, b);
+    }
+
+    
+}
