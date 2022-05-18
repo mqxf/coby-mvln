@@ -1,5 +1,6 @@
-open/closed class "TestClass"{
-    as String define "myString" for Hello Wolrd;
+..Bad syntax, looks like a fucking english essay..
+open/closed class "TestClass" width ("name" as String){
+    as String define "myString" for 'Hello Wolrd';
     as Char define "myChar" for A;
     as Int define "myInt" for 22;
     as Float define "MyFloat" for 3.14;
@@ -9,8 +10,8 @@ open/closed class "TestClass"{
     ..This is a comment..
 
     as Int define Invokable width ("x" as Int, "s" as String){
-
+        invoke PrintLine width ("myString");
     }
 }
 
-as T
+as TestClass make "classInstance" width ('My first Class');
