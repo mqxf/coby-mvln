@@ -9,9 +9,12 @@ eq : equal
     +# String: myString = "Hello, world!";
     -# Int: a = 22;
     -# Int: b = 2;
-    +#~ Double: pi =  3.14259; 
+    +#~ Double: pi =  3.14259;
 
-    ..This is a Comment..
+    ...This is a 
+    multi line
+    Comment...
+    ..single line comment
 
     +~ Int: calculate(Int: x, Int: y){
         give x + y;
@@ -22,6 +25,4 @@ eq : equal
     }else if(a > b){
         calculate(a, b);
     }
-
-    
 }

@@ -2,7 +2,7 @@ sources = $(wildcard src/*.c)
 objects = $(sources:.c=.o)
 flags = -g -Wall -lm -ldl -fPIC -rdynamic\
 
-mlang: $(objects)
+cobyc: $(objects)
 	gcc $(objects) $(flags) -o cobyc
 	cp cobyc mvlnc
 
@@ -16,11 +16,9 @@ install:
 	make clean
 
 clean:
+	rm src/*.o
 	rm cobyc
 	rm mvlnc
-	rm *.o
-	rm *.a
-	rm src/*.o
 
 lint:
 	clang-tidy src/*.c src/include/*.h
