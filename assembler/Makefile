@@ -16,9 +16,9 @@ install:
 	make clean
 
 clean:
-	rm src/*.o
-	rm cas
-	rm mas
+	-rm src/*.o
+	-rm cas
+	-rm mas
 
 lint:
 	clang-tidy src/*.c src/include/*.h
