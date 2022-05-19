@@ -16,9 +16,9 @@ install:
 	make clean
 
 clean:
-	rm src/*.o
-	rm cobyc
-	rm mvc
+	-rm src/*.o
+	-rm cobyc
+	-rm mvc
 
 lint:
 	clang-tidy src/*.c src/include/*.h
