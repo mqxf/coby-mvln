@@ -16,8 +16,8 @@ install:
 	make clean
 
 clean:
-	rm src/*.o
-	rm cld
-	rm mld
+	-rm src/*.o
+	-rm cld
+	-rm mld
 lint:
 	clang-tidy src/*.c src/include/*.h
