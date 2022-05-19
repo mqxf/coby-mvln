@@ -5,6 +5,12 @@
 
 ...
 
+% MOD
+- MINUS
++ PLUS
+/ DIV
+* TIMES / POINTER (maybe added in the future)
+** POW
 > GT
 < LT
 >= GTE
@@ -27,6 +33,7 @@
 ...
 # constant
 ? if
+& chain
 -> extract
 => inject
 -? contains key?
@@ -38,7 +45,7 @@
 ?(greetings not -? "normal"){
 
 }
-?(greetings !-? "hello"){
+&?(greetings !-? "hello"){
 
 }
 
@@ -91,11 +98,6 @@ main(): void {
     while(a != b){
         
     }
-
-    offer(10$, human);
-    offer.accept();
-    trade(human, 10$);
-    offer.finlize();
     
     <b> {
         &(1): b++; brk;
@@ -123,7 +125,7 @@ greetings: libary {
     "how are u": "welcoming",
 }
 
-numbers: list of bin{
+numbers: list of bin {
     01101,
     01101,
     11011,
