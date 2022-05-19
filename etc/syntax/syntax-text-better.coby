@@ -1,0 +1,140 @@
+#pi: double = 3.141592653589;
+#e: float = 2.718281828;
+#greeting: string = "Hello, welcome!";
+
+
+...
+
+> GT
+< LT
+>= GTE
+<= LTE
+! / not
+== EQU
+|| OR
+&& AND
+^ XOR
+| BOR
+& BAND
+>> BSHIFTR
+<< BSHIFTL
+{}
+()
+[]
+
+...
+
+...
+# constant
+? if
+-> extract
+=> inject
+-? contains key?
+=? contains (value)? If it is a library, it will chceck if ANY key has that value.
+...
+
+..ASAs
+
+?(greetings not -? "normal"){
+
+}
+?(greetings !-? "hello"){
+
+}
+
+
+
+main(): void {
+
+    a: int = 4;
+    b: int = 6;
+    c: byte = 0xff;
+    d: bin = 0b10010101;
+    f: hex = 0x42d3f;
+
+    f => print(); ..42d3f
+    c => print(); ..255
+
+    {a, b} => add();
+
+    ?(a > b) {
+        add(5, 3) => print();
+    }
+    &?(b > a){
+        add(a, b) => print();
+    }
+    &{
+        add(a, a) => print();
+    }
+
+
+    <a>brk {
+        &(1): a++;
+        &(2): a--;
+        &:
+    }
+
+    <a>break {
+        &(1): a++;
+        &(2): a--;
+        &:
+    }
+
+    for(i: int; i < number -> lenght; i++) {
+        a++;
+    }
+
+    for(i: bin <- numbers) {
+        ..foreach
+    }
+
+    while(a != b){
+        
+    }
+
+    offer(10$, human);
+    offer.accept();
+    trade(human, 10$);
+    offer.finlize();
+    
+    <b> {
+        &(1): b++; brk;
+        &(2): b--; brk;
+        &: brk;
+    }
+
+    greetings -> "normal" => print();
+    greetings =? "hi"
+    greetings -? "basic"
+
+    numbers[0] => int => print() ..13
+    numbers[0] => print(); ..01101
+
+    back;
+}
+
+add(x: int, y:int):variying {
+    back x+y;
+}
+
+greetings: libary {
+    "hi": "basic",
+    "hello": "normal"
+    "how are u": "welcoming",
+}
+
+numbers: list of bin{
+    01101,
+    01101,
+    11011,
+}
+
+human: collection {
+    age: int;
+    name: string;
+    gender: enum {
+        MALE,
+        FEMALE,
+        OTHER
+    }
+}
