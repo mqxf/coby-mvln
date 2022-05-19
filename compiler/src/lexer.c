@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "include/main.h"
 
 lexer_t* initLexer(char* src) {
@@ -32,6 +33,7 @@ lexer_t* lexerSkipWhiteSpace(lexer_t* lexer) {
 lexer_t* lexerSkipComment(lexer_t* lexer) {
     if (lexer->c == '.' && lexerPeek(lexer, 1) == '.') {
         if (lexerPeek(lexer, 2) == '.') {
+            lexerAdvance(lexer);
             for (;;) {
                 if (lexer->c == '.' && lexerPeek(lexer, 1) == '.' && lexerPeek(lexer, 2) == '.') {
                     lexerAdvance(lexer); 
@@ -46,6 +48,7 @@ lexer_t* lexerSkipComment(lexer_t* lexer) {
             while (lexer->c !='\n') lexerAdvance(lexer);
         }
         lexerSkipWhiteSpace(lexer);
+        lexerSkipComment(lexer);
     }
     return lexer;
 }
@@ -56,11 +59,26 @@ token_t* lexerAdvanceWith(lexer_t* lexer, token_t* token) {
 }
 
 token_t* lexerNextId(lexer_t* lexer) {
-
+    char* value = calloc(1, sizeof(char));
+    while (isalnum(lexer->c)) {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexerAdvance(lexer);
+    }
+    if (strcmp(value, "not") == 0) return initToken(value, TOKEN_NEGATE);
+    return initToken(value, TOKEN_ID);
 }
 
 token_t* lexerNextNumber(lexer_t* lexer) {
-
+    //TODO: check for 0x, 0b and .
+    //TODO: add support for hex, bin and float
+    char* value = calloc(1, sizeof(char));
+    while (isdigit(lexer->c)) {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexerAdvance(lexer);
+    }
+    return initToken(value, TOKEN_INT);   
 }
 
 token_t* lexerNextFloat(lexer_t* lexer) {
@@ -76,11 +94,31 @@ token_t* lexerNextBinary(lexer_t* lexer) {
 }
 
 token_t* lexerNextString(lexer_t* lexer) {
-    
+    char* value = calloc(1, sizeof(char));
+    lexerAdvance(lexer);
+    while (lexer->c != '"') {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexerAdvance(lexer);
+    }
+    lexerAdvance(lexer);
+    char* formatted = strFormat(value);
+    free(value);
+    return initToken(formatted, TOKEN_STRING);
 }
 
 token_t* lexerNextChar(lexer_t* lexer) {
-    
+    char* value = calloc(1, sizeof(char));
+    lexerAdvance(lexer);
+    while (lexer->c != '\'') {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexerAdvance(lexer);
+    }
+    lexerAdvance(lexer);
+    char* formatted = strFormat(value);
+    free(value);
+    return initToken(formatted, TOKEN_CHAR);
 }
 
 token_t* lexerNextToken(lexer_t* lexer) {
@@ -138,7 +176,7 @@ token_t* lexerNextToken(lexer_t* lexer) {
         case ';': return lexerAdvanceWith(lexer, initToken(";", TOKEN_SEMICOLON));
         case ':': return lexerAdvanceWith(lexer, initToken(":", TOKEN_COLON));
         case '^': return lexerAdvanceWith(lexer, initToken("^", TOKEN_XOR));
-        case '%': return lexerAdvanceWith(lexer, initToken(lexer->c, TOKEN_MODULO));
+        case '%': return lexerAdvanceWith(lexer, initToken("%", TOKEN_MODULO));
         case '!': return lexerAdvanceWith(lexer, initToken("!", TOKEN_NEGATE));
         case '#': return lexerAdvanceWith(lexer, initToken("#", TOKEN_CONSTANT));
         case '?': return lexerAdvanceWith(lexer, initToken("?", TOKEN_IF)); 
@@ -155,4 +193,7 @@ token_t* lexerNextToken(lexer_t* lexer) {
             exit(1);
             break;
     }   
+
+    return initToken(0, TOKEN_EOF);
+
 }

@@ -5,6 +5,8 @@
 #include "coby.h"
 #include "token.h"
 #include "file.h"
+#include "macros.h"
+#include "utils.h"
 
 typedef long ssize_t;
 

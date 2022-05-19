@@ -1,6 +1,7 @@
 #ifndef COBY_LEXER_H
 #define COBY_LEXER_H
 #include <stdlib.h>
+#include "token.h"
 typedef struct LEXER_STRUCT {
     char* src;
     size_t len;
