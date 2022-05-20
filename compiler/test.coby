@@ -15,7 +15,7 @@ main(agrc: int, argv: list of string): void {
         &(1): print(1);
         &(2): print(2);
         &(5): print(5);
-        &: print("Error");
+        &: runtimeError("Exception lol");
     }
 
 }

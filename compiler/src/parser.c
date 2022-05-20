@@ -23,7 +23,7 @@ AST_t* parserParse(parser_t* parser) {
 }
 
 AST_t* parseFile(parser_t* parser) {
-    AST_t* ast = initAST(AST_)
+    AST_t* ast = initAST(AST_FILE);
     while (parser->token->type != TOKEN_EOF) {
         list_t* children = initList(sizeof(struct AST_STRUCT));
         listPush(children, parseFunction(parser));

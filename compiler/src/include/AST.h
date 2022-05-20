@@ -10,7 +10,7 @@ struct VISITOR_STRUCT;
 
 typedef struct AST_STRUCT {
     enum {
-        AST_TOKEN_
+        AST_FILE
     } type;
 
     dataType dtype;

@@ -17,7 +17,9 @@ main(argc: int, argv: list of string): void {
     
     println("You are " + age + " years old");
 
-    name -> lenght => age;
+    name -> length => age;
+
+    age => print();
     
     exit(0);
 }
