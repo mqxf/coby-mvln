@@ -50,11 +50,12 @@ typedef struct TOKEN_STRUCT{
         TOKEN_CONTAINS_KEY,     //-?
         TOKEN_BACK_EXTRACT,     //<-
         TOKEN_ADDRESS,          //@
-        TOKEN_EOF               //End of file
+        TOKEN_EOF,              //End of file
     } type;
 } token_t;
 
 token_t* initToken(char* value, int type);
+const char* tokenTypeToString(int type);
 char* tokenToString(token_t* token);
 
 #endif

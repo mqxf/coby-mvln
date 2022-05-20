@@ -16,8 +16,10 @@ char lexerPeek(lexer_t* lexer, int offset) {
 }
 
 lexer_t* lexerAdvance(lexer_t* lexer) {
-    lexer->i++;
-    lexer->c = lexer->src[lexer->i];
+    if (lexer->i < lexer->len) {
+        lexer->i++;
+        lexer->c = lexer->src[lexer->i];
+    }
     return lexer;
 }
 
@@ -25,6 +27,7 @@ lexer_t* lexerSkipWhiteSpace(lexer_t* lexer) {
     while(lexer->c == 13 || lexer->c == 10 || lexer->c == ' ' || lexer->c == '\t'){
         lexerAdvance(lexer);
     }
+    return lexer;
 }
 
 lexer_t* lexerSkipComment(lexer_t* lexer) {
@@ -51,7 +54,7 @@ lexer_t* lexerSkipComment(lexer_t* lexer) {
 }
 
 token_t* lexerAdvanceWith(lexer_t* lexer, token_t* token) {
-    for (int i = 0; i < strlen(token->value); i++) lexerAdvance(lexer);
+    for (size_t i = 0; i < strlen(token->value); i++) lexerAdvance(lexer);
     return token;
 }
 
@@ -211,8 +214,9 @@ token_t* lexerNextToken(lexer_t* lexer) {
         case '.': return lexerAdvanceWith(lexer, initToken(".", TOKEN_DOT));
         case '/': return lexerAdvanceWith(lexer, initToken("/", TOKEN_DIVIDE));
         case '@': return lexerAdvanceWith(lexer, initToken("@", TOKEN_ADDRESS));
+        case '\0': break;
         default:
-            printf("Invalid token %c", lexer->c);
+            printf("Invalid token %c, %d", lexer->c, lexer->c);
             exit(1);
             break;
     }   

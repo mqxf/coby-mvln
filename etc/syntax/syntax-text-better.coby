@@ -84,7 +84,7 @@ main(): void {
     &?(b > a) {
         add(a, b) => print();
     }
-    &{
+    & {
         add(a, a) => print();
     }
 

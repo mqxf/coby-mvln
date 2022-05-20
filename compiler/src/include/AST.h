@@ -2,6 +2,9 @@
 #define COBY_AST_H
 
 #include "main.h"
+#include "types.h"
+#include "list.h"
+#include "stackFrame.h"
 
 struct VISITOR_STRUCT;
 
@@ -18,6 +21,7 @@ typedef struct AST_STRUCT {
         AST_STATEMENT_ELSE_IF,
         AST_STATEMENT_ELSE,
         AST_STATEMENT_SWITCH,
+        AST_STATEMENT_CASE,
         AST_ACCESS,
         AST_INT,
         AST_STRING,

@@ -5,6 +5,8 @@ list_t* initList(size_t itemSize) {
     list->itemSize = itemSize;
     list->size = 0;
     list->items = 0;
+    
+    return list;
 }
 
 void listPush(list_t* list, void* item) {

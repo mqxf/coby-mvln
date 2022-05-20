@@ -8,7 +8,7 @@ token_t* initToken(char* value, int type){
     return token;
 }
 
-static const char* tokenTypeToString(int type) {
+const char* tokenTypeToString(int type) {
     switch (type) {
         case TOKEN_ID: return "TOKEN_ID";
         case TOKEN_STRING: return "TOKEN_STRING";
