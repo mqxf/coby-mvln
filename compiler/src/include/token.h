@@ -49,6 +49,7 @@ typedef struct TOKEN_STRUCT{
         TOKEN_CONTAINS_VALUE,   //=?
         TOKEN_CONTAINS_KEY,     //-?
         TOKEN_BACK_EXTRACT,     //<-
+        TOKEN_ADDRESS,          //@
         TOKEN_EOF               //End of file
     } type;
 } token_t;

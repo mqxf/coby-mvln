@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "include/main.h"
 
 token_t* initToken(char* value, int type){
@@ -59,6 +56,7 @@ static const char* tokenTypeToString(int type) {
         case TOKEN_CONTAINS_VALUE: return "TOKEN_CONTAINS_VALUE";
         case TOKEN_CONTAINS_KEY: return "TOKEN_CONTAINS_KEY";
         case TOKEN_BACK_EXTRACT: return "TOKEN_BACK_EXTRACT";
+        case TOKEN_ADDRESS: return "TOKEN_ADDRESS";
         case TOKEN_EOF: return "TOKEN_EOF";
         default: return "invalid token type";
     }

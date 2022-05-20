@@ -49,8 +49,6 @@
 
 }
 
-
-
 main(): void {
 
     a: int = 4;
@@ -58,6 +56,22 @@ main(): void {
     c: byte = 0xff;
     d: bin = 0b10010101;
     f: hex = 0x42d3f;
+    addr: hex = @a;
+
+    names: list of string{
+        "james",
+        "paul",
+        "tom",
+    }
+
+    names[0] => print();
+    names -> 0 => print();
+
+    addr -> print();
+
+    add(addr->, b);
+
+    a <- addr => print();
 
     f => print(); ..42d3f
     c => print(); ..255
@@ -67,7 +81,7 @@ main(): void {
     ?(a > b) {
         add(5, 3) => print();
     }
-    &?(b > a){
+    &?(b > a) {
         add(a, b) => print();
     }
     &{
@@ -75,28 +89,36 @@ main(): void {
     }
 
 
-    <a>brk {
+    <a> brk {
         &(1): a++;
         &(2): a--;
         &:
     }
 
-    <a>break {
+    <a> break {
         &(1): a++;
         &(2): a--;
         &:
     }
 
-    for(i: int; i < number -> lenght; i++) {
+    for (i: int; i < number -> lenght; i++) {
         a++;
     }
 
-    for(i: bin <- numbers) {
+
+    for (i: bin <- numbers) {
         ..foreach
     }
 
-    while(a != b){
+    while (a != b) {
         
+    }
+
+    <a, b>cmp, brk{
+        &(<): ;
+        &(>): ;
+        &(=): ;
+        &: ;
     }
     
     <b> {

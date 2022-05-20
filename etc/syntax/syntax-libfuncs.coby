@@ -1,0 +1,23 @@
+include "iolib";
+
+main(argc: int, argv: list of string): void {
+    print("Hello, world! ");
+    "Hello, world!" => println();
+    
+    success: bool = getBool();
+    name: string = getString("What's your name?");
+
+    ?(!success) exit(1);
+
+    {a, b, c, d} => print();
+
+    println("Hello, " + name);
+
+    age: int = getInt("What's your age?");
+    
+    println("You are " + age + " years old");
+
+    name -> lenght => age;
+    
+    exit(0);
+}

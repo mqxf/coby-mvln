@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <ctype.h>
 #include "include/main.h"
 
@@ -70,8 +67,21 @@ token_t* lexerNextId(lexer_t* lexer) {
 }
 
 token_t* lexerNextNumber(lexer_t* lexer) {
-    //TODO: check for 0x, 0b and .
-    //TODO: add support for hex, bin and float
+    if (lexer->c == '0') {
+        if (lexerPeek(lexer, 1) == 'x') {
+            lexerAdvance(lexer);
+            lexerAdvance(lexer);
+            return lexerNextHexadecimal(lexer);
+        }
+        if (lexerPeek(lexer, 1) == 'b') {
+            lexerAdvance(lexer);
+            lexerAdvance(lexer);
+            return lexerNextBinary(lexer);
+        }
+    }
+
+    //TODO: check for float
+
     char* value = calloc(1, sizeof(char));
     while (isdigit(lexer->c)) {
         value = realloc(value, (strlen(value) + 2) * sizeof(char));
@@ -86,11 +96,23 @@ token_t* lexerNextFloat(lexer_t* lexer) {
 }
 
 token_t* lexerNextHexadecimal(lexer_t* lexer) {
-
+    char* value = calloc(1, sizeof(char));
+    while (isxdigit(lexer->c)) {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexerAdvance(lexer);
+    }
+    return initToken(value, TOKEN_HEX);
 }
 
 token_t* lexerNextBinary(lexer_t* lexer) {
-
+    char* value = calloc(1, sizeof(char));
+    while (lexer->c == '0' || lexer->c == '1') {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexerAdvance(lexer);
+    }
+    return initToken(value, TOKEN_BIN);
 }
 
 token_t* lexerNextString(lexer_t* lexer) {
@@ -188,6 +210,7 @@ token_t* lexerNextToken(lexer_t* lexer) {
         case '}': return lexerAdvanceWith(lexer, initToken("}", TOKEN_RIGHT_BRACE));
         case '.': return lexerAdvanceWith(lexer, initToken(".", TOKEN_DOT));
         case '/': return lexerAdvanceWith(lexer, initToken("/", TOKEN_DIVIDE));
+        case '@': return lexerAdvanceWith(lexer, initToken("@", TOKEN_ADDRESS));
         default:
             printf("Invalid token %c", lexer->c);
             exit(1);

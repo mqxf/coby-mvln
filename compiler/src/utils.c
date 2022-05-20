@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <string.h>
 #include "include/main.h"
 
 char strToEsc(const char* str) {

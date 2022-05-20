@@ -1,0 +1,55 @@
+line: string = "Hello, how are u?";
+number1: int = 22;
+number2: int = 6;
+letter: char = 'A';
+
+materials: list of string{
+    "stone",
+    "wood",
+    "hay",
+    "plastic",
+}
+
+stuff: collection{
+    12,
+    "hello",
+    'B',
+}
+
+colorIndex: libary{
+    "2":"red",
+    "5":"blue",
+    "10":"green",
+    "3":"yellow",
+}
+
+main(args:)list of string: void{}
+    line => print();
+    print() <= line;
+
+    materials -> 0 => print();
+    materials[0] => print();
+
+    printValue() <= number1;
+
+
+printValue()num: int: void{}
+    {"Your value is: ", num} => print();
+
+
+add()num1: int, num2: int: int{}
+    back: num1 + num2;
+
+
+dgetColorByIndex(key: string, feedback: bool): string{
+    ?(colorIndex -? key)back: colorIndex -> key;
+
+    ?(feedback){
+        <key>{
+            &("2")print("Ohhh Red!!!");
+            &("5")print("Ohhh blue!!!");
+            &("10")print("Ohhh green!!!");
+            &("3")print("Ohhh yellow!!!");
+        }
+    }
+}
