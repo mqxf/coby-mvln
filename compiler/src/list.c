@@ -16,7 +16,7 @@ void listPush(list_t* list, void* item) {
         list->items = calloc(1, list->itemSize);
     }
     else {
-        list->items = realloc(list->items, list->size + list->itemSize);
+        list->items = realloc(list->items, list->size * list->itemSize);
     }
 
     list->items[list->size - 1] = item;

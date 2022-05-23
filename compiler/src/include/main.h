@@ -13,10 +13,10 @@
 #include "macros.h"
 #include "utils.h"
 #include "parser.h"
-#include "AST.h"
 #include "list.h"
 #include "types.h"
-#include "stackFrame.h"
+#include "AST.h"
+#include "variables.h"
 
 typedef long ssize_t;
 

@@ -23,14 +23,13 @@ colorIndex: libary{
     "3":"yellow",
 }
 
-main(args:)list of string: void{}
+main(args:list of string): void{}
     line => print();
-    print() <= line;
 
     materials -> 0 => print();
     materials[0] => print();
 
-    printValue() <= number1;
+    number1 => printValue();
 
 
 printValue()num: int: void{}

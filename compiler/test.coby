@@ -1,25 +1,5 @@
-main(agrc: int, argv: list of string): void {
-    a: int = 10;
-    b: int = 5;
-    ?(a > b) {
-        print(a);
-    }
-    &?(b > a) {
-        print(b);
-    }
-    & {
-        add(a, b) => printf();
-    }
+#hello:string = "hi man!";
 
-    <b> {
-        &(1): print(1);
-        &(2): print(2);
-        &(5): print(5);
-        &: runtimeError("Exception lol");
-    }
+testerint:int = 10;
 
-}
-
-add(a: int, b: int): int {
-    back a + b;
-}
+empty:char;

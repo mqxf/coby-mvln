@@ -7,6 +7,7 @@ typedef struct TOKEN_STRUCT{
         TOKEN_STRING,           //between ""
         TOKEN_CHAR,             //between ''
         TOKEN_INT,              //integer literal
+        TOKEN_FLOAT,            //float literal
         TOKEN_HEX,              //hexadecimal literal 0x
         TOKEN_BIN,              //binary literal 0b
         TOKEN_SEMICOLON,        //;

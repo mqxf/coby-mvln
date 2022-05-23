@@ -1,8 +1,7 @@
 #ifndef COBY_TYPES_H
 #define COBY_TYPES_H
 
-typedef enum
-{
+typedef enum{
     DATA_TYPE_STRING,
     DATA_TYPE_CHAR,
     DATA_TYPE_BOOLEAN,
