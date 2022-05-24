@@ -196,7 +196,7 @@ AST_t* parseVariable(parser_t* parser) {
         //
     }
     else if (strcmp(parser->token->value, "list") == 0) {
-        //
+        return parseList(parser, variable->name);
     }
     else {
         variable->dType = DATA_TYPE_UNKNOWN;
@@ -251,5 +251,105 @@ AST_t* parseVariable(parser_t* parser) {
     }
 
     parserEat(parser, TOKEN_SEMICOLON);
+    return variable;
+}
+
+AST_t* parseList(parser_t* parser, char* name) {
+    //list of *** {}
+    AST_t* variable = initAST(AST_STATEMENT_VAR_DECLARATION);
+    variable->name = name;
+    variable->dType = DATA_TYPE_LIST;
+    parserEat(parser, TOKEN_ID);
+    //of *** {}
+    parserEat(parser, TOKEN_ID);
+    //*** {}
+    if (strcmp(parser->token->value, "string") == 0) {
+        variable->lType = DATA_TYPE_STRING;
+    }
+    else if (strcmp(parser->token->value, "int") == 0) {
+        variable->lType = DATA_TYPE_INT;
+    }
+    else if (strcmp(parser->token->value, "char") == 0) {
+        variable->lType = DATA_TYPE_CHAR;
+    }
+    else if (strcmp(parser->token->value, "bin") == 0) {
+        variable->lType = DATA_TYPE_BIN;
+    }
+    else if (strcmp(parser->token->value, "hex") == 0) {
+        variable->lType = DATA_TYPE_HEX;
+    }
+    else if (strcmp(parser->token->value, "float") == 0) {
+        variable->lType = DATA_TYPE_FLOAT;
+    }
+    else if (strcmp(parser->token->value, "bool") == 0) {
+        variable->lType = DATA_TYPE_BOOLEAN;
+    }
+    else {
+        variable->lType = DATA_TYPE_UNKNOWN;
+    }
+    parserEat(parser, TOKEN_ID);
+    if (parser->token->type == TOKEN_SEMICOLON) {
+        parserEat(parser, TOKEN_SEMICOLON);
+        return variable;
+    }
+    parserEat(parser, TOKEN_LEFT_BRACE);
+    switch (variable->lType) {
+        case DATA_TYPE_STRING: variable->strListValue = calloc(1, sizeof(char*)); break;
+        case DATA_TYPE_INT: variable->longListValue = calloc(1, sizeof(long)); break;
+        case DATA_TYPE_HEX: variable->longListValue = calloc(1, sizeof(long)); break;
+        case DATA_TYPE_BIN: variable->longListValue = calloc(1, sizeof(long)); break;
+        case DATA_TYPE_CHAR: variable->charListValue = calloc(1, sizeof(char)); break;
+        case DATA_TYPE_BOOLEAN: variable->longListValue = calloc(1, sizeof(long)); break;
+        default: break;
+    }
+    size_t len = 0;
+    while (1) {
+        len++;
+        switch (variable->lType) {
+            case DATA_TYPE_STRING:
+                variable->strListValue = realloc(variable->strListValue, len * sizeof(char*));
+                variable->strListValue[len - 1] = parser->token->value;
+                parserEat(parser, TOKEN_STRING);
+                break;
+            case DATA_TYPE_INT:
+                variable->longListValue = realloc(variable->strListValue, len * sizeof(long));
+                variable->longListValue[len - 1] = strtol(parser->token->value, NULL, 10);
+                parserEat(parser, TOKEN_INT);
+                break;
+            case DATA_TYPE_HEX:
+                variable->longListValue = realloc(variable->strListValue, len * sizeof(long));
+                variable->longListValue[len - 1] = strtol(parser->token->value, NULL, 16);
+                parserEat(parser, TOKEN_HEX);
+                break;
+            case DATA_TYPE_BIN:
+                variable->longListValue = realloc(variable->strListValue, len * sizeof(long));
+                variable->longListValue[len - 1] = strtol(parser->token->value, NULL, 2);
+                parserEat(parser, TOKEN_BIN);
+                break;
+            case DATA_TYPE_CHAR:
+                variable->charListValue = realloc(variable->strListValue, len * sizeof(char));
+                variable->charListValue[len - 1] = parser->token->value[0];
+                parserEat(parser, TOKEN_CHAR);
+                break;
+            case DATA_TYPE_BOOLEAN:
+                if (strcmp(parser->token->value, "flase") == 0) {
+                    variable->longListValue = realloc(variable->strListValue, len * sizeof(long));
+                    variable->longListValue[len - 1] = 0;
+                }
+                else if (strcmp(parser->token->value, "true") == 0) {
+                    variable->longListValue = realloc(variable->strListValue, len * sizeof(long));
+                    variable->longListValue[len - 1] = 1;
+                }
+                parserEat(parser, TOKEN_ID);
+                break;
+            default: break;
+        }
+        if (!(parser->token->type == TOKEN_COMMA)) {
+            break;
+        }
+        parserEat(parser, TOKEN_COMMA);
+    }
+    variable->listLen = len;
+    parserEat(parser, TOKEN_RIGHT_BRACE);
     return variable;
 }

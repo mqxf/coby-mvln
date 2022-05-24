@@ -23,6 +23,21 @@ void compile(const char* inFile, const char* outFile) {
         else if (temp->dType == DATA_TYPE_CHAR) {
             printf("%s, %c\n", temp->name, temp->charValue);
         }
+        else if (temp->dType == DATA_TYPE_LIST) {
+            printf("%s {\n", temp->name);
+            for (size_t j = 0; j < temp->listLen; j++) {
+                if (temp->lType == DATA_TYPE_STRING) {
+                    printf("%s\n", (char*) temp->strListValue[j]);
+                }
+                else if (temp->lType == DATA_TYPE_CHAR) {
+                    printf("%c\n", (char) temp->charListValue[j]);
+                }
+                else {
+                    printf("%ld\n", (long) temp->longListValue[j]);
+                }
+            }
+            printf("}\n");
+        }
         else {
             printf("%s, %ld\n", temp->name, temp->longValue);
         }

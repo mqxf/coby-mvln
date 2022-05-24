@@ -18,5 +18,6 @@ token_t* parserEat(parser_t* parser, unsigned int type);
 AST_t* parserParse(parser_t* parser);
 AST_t* parseConstant(parser_t* parser);
 AST_t* parseVariable(parser_t* parser);
+AST_t* parseList(parser_t* parser, char* name);
 
 #endif

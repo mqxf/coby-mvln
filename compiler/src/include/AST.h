@@ -37,6 +37,7 @@ typedef struct AST_STRUCT {
     } type;
 
     dataType dType;
+    dataType lType;
 
     char* name;
 
@@ -45,6 +46,13 @@ typedef struct AST_STRUCT {
     long longValue;
     float floatValue;
 
+    size_t listLen;
+    char** strListValue;
+    char* charListValue;
+    long* longListValue;
+    float* floatListValue;
+
+    list_t* args;
     list_t* children;
     int id;
 } AST_t;
