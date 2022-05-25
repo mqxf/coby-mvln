@@ -1,6 +1,6 @@
 sources = $(wildcard src/*.c)
 objects = $(sources:.c=.o)
-flags = -g -Wall -Wextra -lm -ldl -fPIC -rdynamic\
+flags = -g -Wall -Wextra -lm -ldl -fPIC -rdynamic
 
 cobyc: $(objects)
 	gcc $(objects) $(flags) -o cobyc
@@ -19,7 +19,6 @@ clean:
 	-rm src/*.o
 	-rm cobyc
 	-rm mvc
-	clear
 
 lint:
 	clang-tidy src/*.c src/include/*.h

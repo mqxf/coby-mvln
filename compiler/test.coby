@@ -1,6 +1,3 @@
-a:list of int {
-    1, 
-    2, 
-    3,
-    4
+a:list of string {
+    "Hello"
 }

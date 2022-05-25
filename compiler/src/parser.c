@@ -109,7 +109,8 @@ AST_t* parseConstant(parser_t* parser) {
     //value;
     switch (constant->dType) {
         case DATA_TYPE_STRING:
-            constant->strValue = parser->token->value;
+            constant->strValue = calloc(strlen(parser->token->value), sizeof(char));
+            strcpy(constant->strValue, parser->token->value);
             parserEat(parser, TOKEN_STRING);
             break;
         case DATA_TYPE_INT:
@@ -214,7 +215,8 @@ AST_t* parseVariable(parser_t* parser) {
 
     switch (variable->dType) {
         case DATA_TYPE_STRING:
-            variable->strValue = parser->token->value;
+            variable->strValue = calloc(strlen(parser->token->value), sizeof(char));
+            strcpy(variable->strValue, parser->token->value);
             parserEat(parser, TOKEN_STRING);
             break;
         case DATA_TYPE_INT:
@@ -308,7 +310,8 @@ AST_t* parseList(parser_t* parser, char* name) {
         switch (variable->lType) {
             case DATA_TYPE_STRING:
                 variable->strListValue = realloc(variable->strListValue, len * sizeof(char*));
-                variable->strListValue[len - 1] = parser->token->value;
+                variable->strListValue[len - 1] = calloc(strlen(parser->token->value), sizeof(char));
+                strcpy(variable->strListValue[len - 1], parser->token->value);
                 parserEat(parser, TOKEN_STRING);
                 break;
             case DATA_TYPE_INT:
