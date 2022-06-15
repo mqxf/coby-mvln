@@ -42,7 +42,7 @@ typedef struct AST_STRUCT {
     char* name;
 
     char* strValue;
-    char charValue;
+    char charValue; 
     long longValue;
     float floatValue;
 

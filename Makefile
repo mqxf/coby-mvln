@@ -19,6 +19,7 @@ clean:
 	-rm src/*.o
 	-rm cobyc
 	-rm mvc
+	clear
 
 lint:
 	clang-tidy src/*.c src/include/*.h
